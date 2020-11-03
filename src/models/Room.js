@@ -30,6 +30,6 @@ export default class Room extends Model {
   }
 
   static associate(db) {
-    db.Room.hasMany(db.Chat);
+    db.room.hasMany(db.chat);
   }
 }
