@@ -6,6 +6,7 @@ import cookie from 'cookie-parser';
 import session from 'express-session';
 import flash from 'connect-flash';
 import webSocket from './src/socket';
+import {sequelize} from './src/models';
 require('dotenv').config();
 
 // router
@@ -13,7 +14,9 @@ import indexRouter from './src/routes/indexRouter';
 
 
 const app = express();
-
+sequelize.sync()
+  .then(() => console.log('Maria DB Connected'))
+  .catch((err) => console.error(err));
 
 app.set('views', path.resolve(__dirname, 'src', 'views'));
 app.set('view engine', 'pug');
