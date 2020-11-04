@@ -19,6 +19,6 @@ export default class Chat extends Model {
   }
 
   static associate(db) {
-    db.chat.belongsTo(db.room);
+    db.Chat.belongsTo(db.Room);
   }
 }

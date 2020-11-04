@@ -11,7 +11,7 @@ export default class Room extends Model {
       max: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        defaultValue: 10,
+        defaultValue: 2,
         // min 2  
       },
       owner: {
@@ -30,6 +30,6 @@ export default class Room extends Model {
   }
 
   static associate(db) {
-    db.room.hasMany(db.chat);
+    db.Room.hasMany(db.Chat);
   }
 }

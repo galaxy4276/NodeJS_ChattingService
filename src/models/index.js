@@ -1,8 +1,8 @@
 import Sequelize from 'sequelize';
 import path from 'path';
 import config from './config';
-import chat from './Chat';
-import room from './Room';
+import Chat from './Chat';
+import Room from './Room';
 
 const db = {};
 
@@ -17,8 +17,8 @@ export const sequelize = new Sequelize(dbConfig.database, dbConfig.username,
     dialect: 'mariadb',
   });
 
-db.chat = chat;
-db.room = room;
+db.Chat = Chat;
+db.Room = Room;
 
 Object.keys(db).forEach(modelName => {
   db[modelName] = db[modelName].init(sequelize);
