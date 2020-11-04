@@ -6,7 +6,8 @@ import cookie from 'cookie-parser';
 import session from 'express-session';
 import flash from 'connect-flash';
 import webSocket from './src/socket';
-import {sequelize} from './src/models';
+import { sequelize } from './src/models';
+import ColorHash from 'color-hash';
 require('dotenv').config();
 
 // router
@@ -17,6 +18,15 @@ const app = express();
 sequelize.sync()
   .then(() => console.log('Maria DB Connected'))
   .catch((err) => console.error(err));
+const sessionMiddleware = session({
+  resave: false,
+  saveUninitialized: false,
+  secret: process.env.COOKIE_SECRET,
+  cookie: {
+    httpOnly: true,
+    secure: false,
+  }
+})
 
 app.set('views', path.resolve(__dirname, 'src', 'views'));
 app.set('view engine', 'pug');
@@ -28,16 +38,15 @@ app.use(express.static(path.resolve(__dirname, 'src', 'public')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookie(process.env.COOKIE_SECRET));
-app.use(session({
-  resave: false,
-  saveUninitialized: false,
-  secret: process.env.COOKIE_SECRET,
-  cookie: {
-    httpOnly: true,
-    secure: false,
-  }
-}));
+app.use(sessionMiddleware);
 app.use(flash());
+app.use((req, res, next) => {
+  if (!req.session.color) {
+    const colorHash = new ColorHash();
+    req.session.color = colorHash.hex(req.sessionID);
+  }
+  next();
+});
 
 
 app.use('/', indexRouter);
@@ -60,4 +69,4 @@ const server = app.listen(app.get('port'), () => {
 });
 
 // socket
-webSocket(server);
+webSocket(server, app, sessionMiddleware);
