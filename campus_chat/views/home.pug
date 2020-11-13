@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title= title || '대덕대학교'
+    link(rel="stylesheet", href="/home.css")
+  body
+    .global-wrapper
+      .title-container
+        .title-container__main
+          span.title-color__first 대덕
+          span.title-color__second 대학교 
+        .title-container__sub
+          span.title-text 무엇이든 물어보세요!
+      .main-container
+        .chatbox-container
+          .chatbox-container__title
+            span 채팅방
+            span &nbsp;목록
+          .chatbox-container__room
+            ul.chatbox-room__container
+              li.chatbox-room
+                span.chatbox-room__title 방제: 안녕하세요
+                form(action="#", method="get")
+                  button.chatbox-room__enter--btn 입장
+      
+  script(src="/socket.io/socket.io.js")
+  script.
+    const socket = io.connect('http://localhost:8001');
+    socket.emit('connection', () => {
+      console.log('클라이언트님 입장하신다~ 😎');
+    });
