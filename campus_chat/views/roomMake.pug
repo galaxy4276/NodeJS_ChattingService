@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    link(rel="stylesheet" href="/make.css")
+    title= title || '채팅방'
+  body
+    form(action="" method="POST")
+      .make-container
+        .make-title
+          p 방만들기
+        .make-setvalue
+          label 방 제목
+          input(type="input" name="title" required)
+          label 방 인원
+          input.make-setvalue__number(
+            type="number" 
+            name="member" 
+            value="2"
+            required 
+            min=2
+            max=10
+            maxlength=10
+            )
+          label 비밀번호
+          input(type="password" name="password" required)
+            
+        button.make-submit__button(type="submit") 만들기 
+    script(src="/js/member.js")

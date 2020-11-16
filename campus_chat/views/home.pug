@@ -22,8 +22,11 @@ html(lang="en")
             ul.chatbox-room__container
               li.chatbox-room
                 span.chatbox-room__title 방제: 안녕하세요
+                span.chatbox-room__people 10 / 2
                 form(action="#", method="get")
                   button.chatbox-room__enter--btn 입장
+          form.chatbox-inquire(action="/room" method="GET")        
+            button.chatbox-inquire__button(type="submit") 방만들기
       
   script(src="/socket.io/socket.io.js")
   script.
