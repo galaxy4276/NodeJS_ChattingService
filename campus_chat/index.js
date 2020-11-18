@@ -6,6 +6,8 @@ import path from 'path';
 import socket from './socketio';
 import db from './models';
 
+import indexRouter from './routes/indexRouter';
+
 require('dotenv').config();
 
 const app = express();
@@ -22,9 +24,7 @@ app.set('view engine', 'pug');
 app.use(logger(process.env.ENV || 'dev'));
 app.use('/', express.static(path.resolve(__dirname, 'public')));
 
-app.get('/', (req, res) => {
-  res.render('home', {});
-});
+app.use('/', indexRouter);
 
 const server = app.listen(app.get('port'), () => {
   console.log(`listening on http://${app.get('host')}:${app.get('port')}`);
