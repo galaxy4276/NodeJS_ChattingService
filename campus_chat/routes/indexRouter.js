@@ -1,6 +1,6 @@
 import sequelize from '../models';
 
-const { Room } = sequelize;
+const { Room, Chat } = sequelize;
 const indexRouter = require('express').Router();
 
 indexRouter.get('/', async (req, res) => {
@@ -13,9 +13,16 @@ indexRouter.get('/room', (req, res) => {
   res.render('roomMake', {});
 });
 
+indexRouter.get('/room/:id', async (req, res) => {
+  const { id } = req.params;
+  const chat = await Chat.findOne({
+    where: { id },
+  });
+  res.render('chat', { chat });
+});
+
 indexRouter.post('/room', async (req, res) => {
   const { title, member, password } = req.body;
-
   await Room.create({
     title,
     count: member,
