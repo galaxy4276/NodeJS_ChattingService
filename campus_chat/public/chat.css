@@ -1,0 +1,36 @@
+@import './_reset.css';
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  font-size: 10px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.chat-container {
+  flex: 1;
+  background: aliceblue;
+}
+
+form {
+  display: flex;
+}
+
+input {
+  flex: 1;
+  border-style: none;
+  outline: none;
+  padding: 1rem;
+}
+
+button {
+  border-style: none;
+}
