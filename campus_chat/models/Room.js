@@ -26,4 +26,8 @@ export default class Room extends Model {
       },
     );
   }
+
+  static associate(db) {
+    db.Room.hasMany(db.Chat);
+  }
 }

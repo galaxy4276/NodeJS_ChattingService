@@ -1,6 +1,7 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import Sequelize from 'sequelize';
 import Room from './Room';
+import Chat from './Chat';
 
 require('dotenv').config();
 
@@ -10,6 +11,7 @@ const config = require('../config/config').default[env];
 const db = {};
 
 db.Room = Room;
+db.Chat = Chat;
 
 const sequelize = new Sequelize(
   config.database,
