@@ -18,7 +18,27 @@ indexRouter.get('/room/:id', async (req, res) => {
   const chat = await Chat.findOne({
     where: { id },
   });
-  res.render('chat', { chat });
+
+  req.app
+    .get('io')
+    .of('/chat')
+    .to(req.params.id)
+    .emit('join', { userId: req.session.color });
+  console.log(`userId: ${req.session.color}`);
+  res.render('chat', { chat, id });
+});
+
+indexRouter.post('/room/:id', async (req, res, next) => {
+  const chat = await Chat.create({
+    user: req.session.color,
+    chat: req.body.chat,
+  });
+  const room = await Room.findOne({ where: { id: req.params.id } });
+  await room.addChats(chat);
+
+  req.app.get('io').of('/chat').to(req.params.id).emit('chat', chat);
+
+  next();
 });
 
 indexRouter.post('/room', async (req, res) => {

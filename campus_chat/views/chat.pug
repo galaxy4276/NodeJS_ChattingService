@@ -8,8 +8,8 @@ html(lang="en")
   body
     .chat-container
     .chat-input
-      form(action="#" method="POST")
-        input(type="text" placeholder="채팅을 입력하세요.")
+      form(action=`/room/${id}` method="POST")
+        input(type="text" name="chat" placeholder="채팅을 입력하세요.")
         button(type="submit") 전송
   script(src="/socket.io/socket.io.js")
   script(src="/js/chat.js")

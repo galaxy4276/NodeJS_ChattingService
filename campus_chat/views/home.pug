@@ -23,7 +23,12 @@ html(lang="en")
               each room in rooms
                 li.chatbox-room
                   span.chatbox-room__title= room.title
-                  span.chatbox-room__people 인원: 10/#{room.count}
+                  span.chatbox-room__people 인원 #{room.count}/null
+                  if (room.password)
+                    span.chatbox-room__status 비밀방
+                  else
+                    span.chatbox-room__status 공개방
+
                   form(action=`/room/${room.id}`, method="get")
                     button.chatbox-room__enter--btn 입장
           form.chatbox-inquire(action="/room" method="GET")        
@@ -34,4 +39,4 @@ html(lang="en")
     const socket = io.connect('http://localhost:8001');
     socket.emit('connection', () => {
       console.log('클라이언트님 입장하신다~ 😎');
-    });
+    });         

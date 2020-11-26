@@ -30,7 +30,7 @@ const sessionMiddleware = session({
 
 app.set('views', path.resolve(__dirname, 'src', 'views'));
 app.set('view engine', 'pug');
-app.set('port', process.env.PORT || 8001);
+app.set('port', process.env.PORT || 8002);
 
 
 app.use(logger('dev'));
